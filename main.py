@@ -1,10 +1,14 @@
 import discord
 from discord.ext import commands
-import youtube_dl
+from dotenv import load_dotenv
+from pathlib import Path
+import os
+
+dotenv_path = Path('Token.env')
+load_dotenv(dotenv_path=dotenv_path)
 
 intents = discord.Intents.all()
 bot = commands.Bot(intents=intents)
-discord_token = "MTA2NTk4NzMxMDQ0Njk3Mjk2OA.GXe59H.RUN0VaWTKAmRvinyX6A6oT-m71EqOHd_czpOBo"
 
 @bot.event
 async def on_ready():
@@ -24,6 +28,7 @@ async def ping(ctx):
 @bot.slash_command(name="join", description="加入語音頻道")
 async def join(ctx):
     channel = ctx.author.voice.channel
+    print(channel)
     await channel.connect()
     await ctx.respond("加入成功" + ":white_check_mark:")
 
@@ -33,6 +38,4 @@ async def leave(ctx):
     await ctx.respond("已離開" + ":white_check_mark:")
 
 
-bot.run("MTA2NTk4NzMxMDQ0Njk3Mjk2OA.GXe59H.RUN0VaWTKAmRvinyX6A6oT-m71EqOHd_czpOBo")
-
-
+bot.run(str(os.getenv("Token")))

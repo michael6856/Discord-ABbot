@@ -1,0 +1,4 @@
+py-cord
+youtube-dl
+pynacl
+pathlib
